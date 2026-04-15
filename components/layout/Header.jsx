@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Mail, GitHub } from 'lucide-react';
+import { Mail, Github } from 'lucide-react';
 
 export default function Header() {
   return (
@@ -13,7 +13,7 @@ export default function Header() {
         </Link>
         <div className="flex items-center gap-4">
           <a href="https://github.com/project-imace" target="_blank" rel="noopener noreferrer" className="text-foreground/70 hover:text-foreground transition">
-            <GitHub className="w-5 h-5" />
+            <Github className="w-5 h-5" />
           </a>
           <a href="mailto:reach@imace.online" className="text-foreground/70 hover:text-foreground transition">
             <Mail className="w-5 h-5" />

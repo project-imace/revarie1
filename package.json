@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "autoprefixer": "^10.5.0",
     "clsx": "^2.1.1",
     "cookies-next": "^5.0.0",
     "date-fns": "^3.6.0",
