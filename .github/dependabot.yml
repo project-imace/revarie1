@@ -1,0 +1,40 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Kolkata"
+    open-pull-requests-limit: 5
+    versioning-strategy: increase
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    labels:
+      - "dependencies"
+    groups:
+      production:
+        dependency-type: "production"
+      development:
+        dependency-type: "development"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "security"
+      include: "scope"
+    labels:
+      - "security"
+    target-branch: "Production"
+    allow:
+      - dependency-type: "direct"
+    groups:
+      security-updates:
+        applies-to: security-updates
+        patterns:
+          - "*"

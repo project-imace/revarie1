@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inclusive+Sans:wght@400&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "Space Mono", monospace;
+  --font-body: "Inclusive Sans", sans-serif;
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --color-muted: #0a0a0a;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-accent: #4ade80;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.glass-card {
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+}

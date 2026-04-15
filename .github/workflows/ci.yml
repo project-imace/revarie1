@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: ["Production"]
+  pull_request:
+    branches: ["Production"]
+
+jobs:
+  lint-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npx eslint .
+
+      - name: Build
+        run: npm run build
+        env:
+          VAULT_API_URL: ${{ secrets.VAULT_API_URL }}
+          VAULT_API_KEY: ${{ secrets.VAULT_API_KEY }}
+          NEXT_PUBLIC_CDN_URL: ${{ secrets.NEXT_PUBLIC_CDN_URL }}

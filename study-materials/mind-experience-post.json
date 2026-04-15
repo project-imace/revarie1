@@ -1,0 +1,88 @@
+{
+  "sections": [
+    {
+      "id": "panas",
+      "title": "PANAS Scale",
+      "instructions": "Read each word and select the response that best reflects how you generally feel, on average.",
+      "questions": [
+        { "id": "interested", "text": "Interested", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "distressed", "text": "Distressed", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "excited", "text": "Excited", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "upset", "text": "Upset", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "strong", "text": "Strong", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "guilty", "text": "Guilty", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "hostile", "text": "Hostile", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "enthusiastic", "text": "Enthusiastic", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "proud", "text": "Proud", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "irritable", "text": "Irritable", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "alert", "text": "Alert", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "ashamed", "text": "Ashamed", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "inspired", "text": "Inspired", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "nervous", "text": "Nervous", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "determined", "text": "Determined", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "attentive", "text": "Attentive", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "jittery", "text": "Jittery", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "active", "text": "Active", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
+        { "id": "afraid", "text": "Afraid", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] }
+      ]
+    },
+    {
+      "id": "who5",
+      "title": "WHO-5 Well-Being Index",
+      "instructions": "Select the option that best describes how you have felt during the last two weeks.",
+      "questions": [
+        { "id": "cheerful", "text": "I have felt cheerful in good spirits.", "type": "likert", "options": ["All of the time", "Most of the time", "More than half the time", "Less than half the time", "Some of the time", "At no time"] },
+        { "id": "calm", "text": "I have felt calm and relaxed.", "type": "likert", "options": ["All of the time", "Most of the time", "More than half the time", "Less than half the time", "Some of the time", "At no time"] },
+        { "id": "active", "text": "I have felt active and vigorous.", "type": "likert", "options": ["All of the time", "Most of the time", "More than half the time", "Less than half the time", "Some of the time", "At no time"] },
+        { "id": "rested", "text": "I woke up feeling fresh and rested.", "type": "likert", "options": ["All of the time", "Most of the time", "More than half the time", "Less than half the time", "Some of the time", "At no time"] },
+        { "id": "interesting", "text": "My daily life has been filled with things that interest me.", "type": "likert", "options": ["All of the time", "Most of the time", "More than half the time", "Less than half the time", "Some of the time", "At no time"] }
+      ]
+    },
+    {
+      "id": "tias",
+      "title": "Trust in Automation Scale (TIAS)",
+      "instructions": "Evaluate the system you interacted with during the study.",
+      "questions": [
+        { "id": "deceptive", "text": "The system is deceptive.", "type": "likert-7" },
+        { "id": "underhanded", "text": "The system behaves in an underhanded manner.", "type": "likert-7" },
+        { "id": "suspicious", "text": "I am suspicious of the system's intent, action, or outputs.", "type": "likert-7" },
+        { "id": "wary", "text": "I am wary of the system.", "type": "likert-7" },
+        { "id": "harmful", "text": "The system's action will have a harmful or injurious outcome.", "type": "likert-7" },
+        { "id": "confident", "text": "I am confident in the system.", "type": "likert-7" },
+        { "id": "security", "text": "The system provides security.", "type": "likert-7" },
+        { "id": "integrity", "text": "The system has integrity.", "type": "likert-7" },
+        { "id": "dependable", "text": "The system is dependable.", "type": "likert-7" },
+        { "id": "reliable", "text": "The system is reliable.", "type": "likert-7" },
+        { "id": "trust", "text": "I can trust the system.", "type": "likert-7" },
+        { "id": "familiar", "text": "I am familiar with the system.", "type": "likert-7" }
+      ]
+    },
+    {
+      "id": "mmp35",
+      "title": "Mind Perception Scale (MMP-35)",
+      "instructions": "Indicate the extent to which you believe the system you interacted with possesses each capacity.",
+      "questions": [
+        { "id": "happy", "text": "Feeling happy", "type": "likert-7" },
+        { "id": "tired", "text": "Feeling tired", "type": "likert-7" },
+        { "id": "praising", "text": "Praising moral actions", "type": "likert-7" },
+        { "id": "understanding", "text": "Understanding others' minds", "type": "likert-7" },
+        { "id": "moving", "text": "Moving on their own", "type": "likert-7" },
+        { "id": "pleasure", "text": "Feeling pleasure", "type": "likert-7" },
+        { "id": "fear", "text": "Experiencing fear", "type": "likert-7" },
+        { "id": "upholding", "text": "Upholding moral values", "type": "likert-7" },
+        { "id": "planning", "text": "Planning for the future", "type": "likert-7" },
+        { "id": "communicating", "text": "Communicating verbally", "type": "likert-7" },
+        { "id": "loving", "text": "Loving specific people", "type": "likert-7" },
+        { "id": "stress", "text": "Feeling stress", "type": "likert-7" },
+        { "id": "rightwrong", "text": "Telling right from wrong", "type": "likert-7" },
+        { "id": "inferring", "text": "Inferring what a person is thinking", "type": "likert-7" },
+        { "id": "learning", "text": "Learning from instruction", "type": "likert-7" },
+        { "id": "gratitude", "text": "Experiencing gratitude", "type": "likert-7" },
+        { "id": "pain", "text": "Feeling pain", "type": "likert-7" },
+        { "id": "disapproving", "text": "Disapproving of immoral actions", "type": "likert-7" },
+        { "id": "goals", "text": "Setting goals", "type": "likert-7" },
+        { "id": "seeing", "text": "Seeing and hearing the world around them", "type": "likert-7" }
+      ]
+    }
+  ]
+}

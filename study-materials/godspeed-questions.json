@@ -1,0 +1,58 @@
+{
+  "sections": [
+    {
+      "id": "anthropomorphism",
+      "title": "Anthropomorphism",
+      "questions": [
+        { "id": "fake_natural", "text": "Fake — Natural", "type": "likert-5" },
+        { "id": "machine_human", "text": "Machinelike — Humanlike", "type": "likert-5" },
+        { "id": "unconscious_conscious", "text": "Unconscious — Conscious", "type": "likert-5" },
+        { "id": "artificial_lifelike", "text": "Artificial — Lifelike", "type": "likert-5" },
+        { "id": "rigid_elegant", "text": "Moving rigidly — Moving elegantly", "type": "likert-5" }
+      ]
+    },
+    {
+      "id": "animacy",
+      "title": "Animacy",
+      "questions": [
+        { "id": "dead_alive", "text": "Dead — Alive", "type": "likert-5" },
+        { "id": "stagnant_lively", "text": "Stagnant — Lively", "type": "likert-5" },
+        { "id": "mechanical_organic", "text": "Mechanical — Organic", "type": "likert-5" },
+        { "id": "artificial_lifelike", "text": "Artificial — Lifelike", "type": "likert-5" },
+        { "id": "inert_interactive", "text": "Inert — Interactive", "type": "likert-5" },
+        { "id": "apathetic_responsive", "text": "Apathetic — Responsive", "type": "likert-5" }
+      ]
+    },
+    {
+      "id": "likeability",
+      "title": "Likeability",
+      "questions": [
+        { "id": "dislike_like", "text": "Dislike — Like", "type": "likert-5" },
+        { "id": "unfriendly_friendly", "text": "Unfriendly — Friendly", "type": "likert-5" },
+        { "id": "unkind_kind", "text": "Unkind — Kind", "type": "likert-5" },
+        { "id": "unpleasant_pleasant", "text": "Unpleasant — Pleasant", "type": "likert-5" },
+        { "id": "awful_nice", "text": "Awful — Nice", "type": "likert-5" }
+      ]
+    },
+    {
+      "id": "perceived_intelligence",
+      "title": "Perceived Intelligence",
+      "questions": [
+        { "id": "incompetent_competent", "text": "Incompetent — Competent", "type": "likert-5" },
+        { "id": "ignorant_knowledgeable", "text": "Ignorant — Knowledgeable", "type": "likert-5" },
+        { "id": "irresponsible_responsible", "text": "Irresponsible — Responsible", "type": "likert-5" },
+        { "id": "unintelligent_intelligent", "text": "Unintelligent — Intelligent", "type": "likert-5" },
+        { "id": "foolish_sensible", "text": "Foolish — Sensible", "type": "likert-5" }
+      ]
+    },
+    {
+      "id": "perceived_safety",
+      "title": "Perceived Safety",
+      "questions": [
+        { "id": "anxious_relaxed", "text": "Anxious — Relaxed", "type": "likert-5" },
+        { "id": "calm_agitated", "text": "Calm — Agitated", "type": "likert-5" },
+        { "id": "still_surprised", "text": "Still — Surprised", "type": "likert-5" }
+      ]
+    }
+  ]
+}
