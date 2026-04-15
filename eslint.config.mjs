@@ -1,24 +1,38 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import js from "@eslint/js";
+import reactPlugin from "eslint-plugin-react";
+import hooksPlugin from "eslint-plugin-react-hooks";
+import globals from "globals";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals"),
+export default [
+  js.configs.recommended,
   {
+    files: ["**/*.{js,jsx}"],
+    plugins: {
+      react: reactPlugin,
+      "react-hooks": hooksPlugin,
+    },
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
     rules: {
-      "react/no-unescaped-entities": "off",
-      "no-unused-vars": "off",
-      "@next/next/no-img-element": "off",
-      "react-hooks/exhaustive-deps": "warn"
-    }
-  }
+      ...reactPlugin.configs.recommended.rules,
+      ...hooksPlugin.configs.recommended.rules,
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
+      "react/display-name": "off",
+    },
+  },
 ];
-
-export default eslintConfig;
