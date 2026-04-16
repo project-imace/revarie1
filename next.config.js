@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  output: "standalone",
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'assets.imace.online',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "assets.imace.online",
+        port: "",
+        pathname: "/**",
       },
     ],
   },
