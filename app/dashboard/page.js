@@ -135,8 +135,8 @@ export default function DashboardPage() {
             <Image
               src={groupIcons[user.study_group] || groupIcons.C}
               alt="Group"
-              width={32}
-              height={32}
+              width={160}
+              height={90}
             />
             <span className="font-mono text-sm bg-muted px-3 py-1 rounded-full">
               {groupNames[user.study_group] || `Group ${user.study_group}`}
