@@ -3,23 +3,28 @@ import { NextResponse } from 'next/server';
 export async function GET(request) {
   try {
     const url = new URL(request.url);
-    const pathname = url.pathname;
-    const vaultPrefix = '/api/vault';
-    const endpoint = pathname.slice(pathname.indexOf(vaultPrefix) + vaultPrefix.length) + url.search;
+    let pathname = url.pathname;
+
+    // Remove the '/api/vault' prefix to get the Worker endpoint
+    const endpoint = pathname.replace(/^\/api\/vault/, '') + url.search;
 
     const vaultUrl = process.env.VAULT_API_URL;
     const vaultKey = process.env.VAULT_API_KEY;
 
     if (!vaultUrl || !vaultKey) {
-      return new Response(JSON.stringify({ error: 'Missing VAULT_API_URL or VAULT_API_KEY' }), {
+      return new Response(JSON.stringify({ error: 'Missing environment variables' }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
     const workerUrl = `${vaultUrl}${endpoint}`;
+
     const res = await fetch(workerUrl, {
-      headers: { 'Content-Type': 'application/json', 'x-api-key': vaultKey },
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': vaultKey,
+      },
     });
 
     const data = await res.text();
@@ -38,15 +43,16 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const url = new URL(request.url);
-    const pathname = url.pathname;
-    const vaultPrefix = '/api/vault';
-    const endpoint = pathname.slice(pathname.indexOf(vaultPrefix) + vaultPrefix.length);
+    let pathname = url.pathname;
+
+    // Remove the '/api/vault' prefix
+    const endpoint = pathname.replace(/^\/api\/vault/, '');
 
     const vaultUrl = process.env.VAULT_API_URL;
     const vaultKey = process.env.VAULT_API_KEY;
 
     if (!vaultUrl || !vaultKey) {
-      return new Response(JSON.stringify({ error: 'Missing VAULT_API_URL or VAULT_API_KEY' }), {
+      return new Response(JSON.stringify({ error: 'Missing environment variables' }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
       });
@@ -54,9 +60,13 @@ export async function POST(request) {
 
     const workerUrl = `${vaultUrl}${endpoint}`;
     const body = await request.json();
+
     const res = await fetch(workerUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': vaultKey },
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': vaultKey,
+      },
       body: JSON.stringify(body),
     });
 
