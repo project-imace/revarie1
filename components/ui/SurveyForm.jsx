@@ -92,21 +92,21 @@ export default function SurveyForm({ questions, extraSection, onSubmit, submitLa
         {q.type === 'likert' && (
           <div className="flex flex-wrap gap-2">
             {q.options.map((opt, i) => (
-              <button type="button" key={i} onClick={() => isExtra ? handleExtraResponse(sectionIdx, q.id, i) : handleResponse(sectionIdx, q.id, i)} className={`px-3 py-1.5 rounded-lg border text-sm ${value === i ? 'bg-accent border-accent text-background' : 'bg-muted border-border text-foreground/80 hover:bg-muted/80'}`}>{opt}</button>
+              <button type="button" key={i} onClick={() => isExtra ? handleExtraResponse(sectionIdx, q.id, i) : handleResponse(sectionIdx, q.id, i)} className={`px-4 py-2 min-h-[44px] rounded-lg border text-sm ${value === i ? 'bg-accent border-accent text-background' : 'bg-muted border-border text-foreground/80 hover:bg-muted/80'}`}>{opt}</button>
             ))}
           </div>
         )}
         {q.type === 'likert-7' && (
           <div className="flex flex-wrap gap-2">
             {[0,1,2,3,4,5,6].map(num => (
-              <button type="button" key={num} onClick={() => isExtra ? handleExtraResponse(sectionIdx, q.id, num) : handleResponse(sectionIdx, q.id, num)} className={`w-9 h-9 rounded-full border text-sm font-mono ${value === num ? 'bg-accent border-accent text-background' : 'bg-muted border-border text-foreground/80 hover:bg-muted/80'}`}>{num+1}</button>
+              <button type="button" key={num} onClick={() => isExtra ? handleExtraResponse(sectionIdx, q.id, num) : handleResponse(sectionIdx, q.id, num)} className={`w-11 h-11 rounded-full border text-sm font-mono ${value === num ? 'bg-accent border-accent text-background' : 'bg-muted border-border text-foreground/80 hover:bg-muted/80'}`}>{num+1}</button>
             ))}
           </div>
         )}
         {q.type === 'likert-5' && (
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {[1,2,3,4,5].map(num => (
-              <button type="button" key={num} onClick={() => isExtra ? handleExtraResponse(sectionIdx, q.id, num) : handleResponse(sectionIdx, q.id, num)} className={`w-8 h-8 rounded-full border text-sm font-mono ${value === num ? 'bg-accent border-accent text-background' : 'bg-muted border-border text-foreground/80 hover:bg-muted/80'}`}>{num}</button>
+              <button type="button" key={num} onClick={() => isExtra ? handleExtraResponse(sectionIdx, q.id, num) : handleResponse(sectionIdx, q.id, num)} className={`w-10 h-10 rounded-full border text-sm font-mono ${value === num ? 'bg-accent border-accent text-background' : 'bg-muted border-border text-foreground/80 hover:bg-muted/80'}`}>{num}</button>
             ))}
           </div>
         )}

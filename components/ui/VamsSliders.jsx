@@ -33,7 +33,7 @@ export default function VamsSliders({ questions, onSubmit, submitLabel = 'Contin
             max={q.max || 100}
             value={values[q.id]}
             onChange={(e) => handleChange(q.id, parseInt(e.target.value))}
-            className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-accent"
+            className="w-full h-4 touch-none bg-muted rounded-lg appearance-none cursor-pointer accent-accent"
           />
           <div className="flex justify-between text-[10px] font-mono text-foreground/40">
             <span>Not at all</span>

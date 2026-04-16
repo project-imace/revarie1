@@ -76,7 +76,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-[100dvh] flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-foreground/20 border-t-foreground rounded-full animate-spin" />
       </div>
     );
@@ -84,7 +84,7 @@ export default function DashboardPage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-4 text-center">
+      <div className="min-h-[100dvh] flex flex-col items-center justify-center p-4 text-center">
         <GlassCard className="max-w-md">
           <h2 className="font-mono text-xl mb-4 text-red-500">Access Restricted</h2>
           <p className="font-mono text-sm text-foreground/60 mb-6">
