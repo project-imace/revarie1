@@ -41,7 +41,7 @@ export default function PostSurveyPage() {
   const handleSubmit = async (payload) => {
     setLoading(true);
     try {
-      await vaultFetch('/api/survey/mind-study', {
+      await vaultFetch('revarie1/api/survey/mind-study', {
         method: 'POST',
         body: JSON.stringify({
           participant_id: user.participant_id,
