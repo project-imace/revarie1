@@ -4,8 +4,7 @@ async function handler(request) {
     let pathname = url.pathname;
 
     // Remove the '/api/vault' prefix to get the Worker endpoint
-    const endpoint =
-      pathname.replace(/^\/api\/vault/, "").replace(/^\/api/, "") + url.search;
+    const endpoint = pathname.replace(/^\/api\/vault/, "") + url.search;
 
     const vaultUrl = process.env.VAULT_API_URL;
     const vaultKey = process.env.VAULT_API_KEY;
@@ -22,21 +21,31 @@ async function handler(request) {
 
     const workerUrl = `${vaultUrl}${endpoint}`;
     console.log("workerUrl", workerUrl);
-    const res = await fetch(workerUrl, {
+
+    const fetchOptions = {
+      method: request.method,
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": request.headers.get("content-type") || "application/json",
         "x-api-key": vaultKey,
       },
-    });
+    };
 
-    console.log(res);
+    if (request.method !== "GET" && request.method !== "HEAD") {
+      fetchOptions.body = await request.text();
+    }
 
-    // console.log(res);
-
+    const res = await fetch(workerUrl, fetchOptions);
     const data = await res.text();
+
+    const responseHeaders = new Headers(res.headers);
+    responseHeaders.set("Content-Type", "application/json");
+    responseHeaders.delete("Content-Encoding");
+    responseHeaders.delete("Content-Length");
+    responseHeaders.delete("Transfer-Encoding");
+
     return new Response(data, {
       status: res.status,
-      headers: { "Content-Type": "application/json" },
+      headers: responseHeaders,
     });
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
