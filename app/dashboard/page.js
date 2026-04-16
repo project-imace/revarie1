@@ -1,33 +1,35 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
-import { getCurrentUser, clearAuthCookie } from '@/lib/auth';
-import { isNewDayAvailable, isBeforeSixAMIST } from '@/lib/ist';
-import { STUDY_CONFIG } from '@/study.config';
-import GlassCard from '@/components/ui/GlassCard';
-import ProgressBar from '@/components/ui/ProgressBar';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { getCurrentUser, clearAuthCookie } from "@/lib/auth";
+import { isNewDayAvailable, isBeforeSixAMIST } from "@/lib/ist";
+import { STUDY_CONFIG } from "@/study.config";
+import GlassCard from "@/components/ui/GlassCard";
+import ProgressBar from "@/components/ui/ProgressBar";
 
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [sessionAvailable, setSessionAvailable] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const currentUser = await getCurrentUser();
         if (!currentUser) {
-          router.push('/');
+          router.push("/");
           return;
         }
         if (currentUser.is_disqualified) {
-          setMessage('Your participation has been discontinued due to inactivity.');
+          setMessage(
+            "Your participation has been discontinued due to inactivity.",
+          );
           setUser(currentUser);
           setLoading(false);
           return;
@@ -50,14 +52,16 @@ export default function DashboardPage() {
         setSessionAvailable(canStart);
 
         if (!canStart && isAfterStart && !isNewDay) {
-          setMessage("Today's session already completed. Next session unlocks at 6:00 AM IST.");
+          setMessage(
+            "Today's session already completed. Next session unlocks at 6:00 AM IST.",
+          );
         } else if (!canStart && isAfterStart && !isAfterSixAM) {
-          setMessage('Next session unlocks at 6:00 AM IST.');
+          setMessage("Next session unlocks at 6:00 AM IST.");
         } else if (!canStart && !isAfterStart) {
-          setMessage('Study begins April 16, 2026 at 6:00 AM IST.');
+          setMessage("Study begins April 16, 2026 at 6:00 AM IST.");
         }
       } catch {
-        setMessage('Failed to load data.');
+        setMessage("Failed to load data.");
       } finally {
         setLoading(false);
       }
@@ -67,7 +71,7 @@ export default function DashboardPage() {
 
   const handleLogout = async () => {
     await clearAuthCookie();
-    router.push('/');
+    router.push("/");
   };
 
   if (loading) {
@@ -78,25 +82,45 @@ export default function DashboardPage() {
     );
   }
 
-  if (!user) return null;
+  if (!user) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center p-4 text-center">
+        <GlassCard className="max-w-md">
+          <h2 className="font-mono text-xl mb-4 text-red-500">Access Restricted</h2>
+          <p className="font-mono text-sm text-foreground/60 mb-6">
+            {message || "We could not verify your session. Please log in again."}
+          </p>
+          <button
+            onClick={handleLogout}
+            className="bg-foreground text-background font-mono px-6 py-2 rounded-lg hover:bg-foreground/90 transition"
+          >
+            Go to Login
+          </button>
+        </GlassCard>
+      </div>
+    );
+  }
 
   const sessionsCompleted = (user.day_progress || 1) - 1;
   const groupIcons = {
-    A: 'https://assets.imace.online/image/samaralogo.svg',
-    B: 'https://assets.imace.online/image/arterylogo.svg',
-    C: 'https://assets.imace.online/image/psysynapicon.svg',
+    A: "https://assets.imace.online/image/samaralogo.svg",
+    B: "https://assets.imace.online/image/arterylogo.svg",
+    C: "https://assets.imace.online/image/psysynapicon.svg",
   };
   const groupNames = {
-    A: 'Relational AI: Samara',
-    B: 'Functional AI: Artery',
-    C: 'Self Reflection',
+    A: "Relational AI: Samara",
+    B: "Functional AI: Artery",
+    C: "Self Reflection",
   };
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <div className="flex justify-between items-center mb-6">
         <h1 className="font-mono text-3xl">Dashboard</h1>
-        <button onClick={handleLogout} className="text-sm font-mono text-foreground/60 hover:text-foreground">
+        <button
+          onClick={handleLogout}
+          className="text-sm font-mono text-foreground/60 hover:text-foreground"
+        >
           Logout
         </button>
       </div>
@@ -105,8 +129,10 @@ export default function DashboardPage() {
         <div className="flex flex-col md:flex-row justify-between gap-4">
           <div>
             <p className="font-mono text-xs text-foreground/60">Participant</p>
-            <h2 className="font-body text-xl">{user.name || 'Participant'}</h2>
-            <p className="font-mono text-sm text-foreground/60 mt-1">ID: {user.participant_id}</p>
+            <h2 className="font-body text-xl">{user.name || "Participant"}</h2>
+            <p className="font-mono text-sm text-foreground/60 mt-1">
+              ID: {user.participant_id}
+            </p>
           </div>
           <div className="flex items-center gap-3">
             <Image
@@ -133,7 +159,9 @@ export default function DashboardPage() {
         {/* Pre‑Survey Card */}
         <GlassCard>
           <h3 className="font-mono text-lg mb-2">Pre‑Study Survey</h3>
-          <p className="text-sm text-foreground/60 mb-4">Mind & Experience baseline</p>
+          <p className="text-sm text-foreground/60 mb-4">
+            Mind & Experience baseline
+          </p>
           {user.has_onboarded ? (
             <span className="text-accent font-mono text-sm">✓ Completed</span>
           ) : (
@@ -153,9 +181,13 @@ export default function DashboardPage() {
             {sessionsCompleted} of {STUDY_CONFIG.totalDays} completed
           </p>
           {!user.has_onboarded ? (
-            <span className="text-yellow-400 font-mono text-sm">Complete pre‑survey first</span>
+            <span className="text-yellow-400 font-mono text-sm">
+              Complete pre‑survey first
+            </span>
           ) : sessionsCompleted >= STUDY_CONFIG.totalDays ? (
-            <span className="text-accent font-mono text-sm">✓ All sessions done</span>
+            <span className="text-accent font-mono text-sm">
+              ✓ All sessions done
+            </span>
           ) : sessionAvailable ? (
             <Link
               href="/session"
@@ -164,16 +196,22 @@ export default function DashboardPage() {
               Start Today's Session
             </Link>
           ) : (
-            <span className="text-foreground/40 font-mono text-sm text-center block">{message}</span>
+            <span className="text-foreground/40 font-mono text-sm text-center block">
+              {message}
+            </span>
           )}
         </GlassCard>
 
         {/* Post‑Survey Card */}
         <GlassCard>
           <h3 className="font-mono text-lg mb-2">Post‑Study Survey</h3>
-          <p className="text-sm text-foreground/60 mb-4">Final assessment + Godspeed</p>
+          <p className="text-sm text-foreground/60 mb-4">
+            Final assessment + Godspeed
+          </p>
           {sessionsCompleted < STUDY_CONFIG.totalDays ? (
-            <span className="text-foreground/40 font-mono text-sm">Complete all sessions first</span>
+            <span className="text-foreground/40 font-mono text-sm">
+              Complete all sessions first
+            </span>
           ) : user.post_study_mind_experience ? (
             <span className="text-accent font-mono text-sm">✓ Completed</span>
           ) : (
@@ -187,17 +225,23 @@ export default function DashboardPage() {
         </GlassCard>
       </div>
 
-      {sessionsCompleted >= STUDY_CONFIG.totalDays && user.post_study_mind_experience && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-8 p-6 border border-accent/30 rounded-2xl bg-accent/5 text-center">
-          <p className="font-body">
-            Thank you for completing the study!
-            <br />
-            <span className="text-sm text-foreground/60">
-              Email research@imace.online with your participant ID ({user.participant_id}) for a certificate.
-            </span>
-          </p>
-        </motion.div>
-      )}
+      {sessionsCompleted >= STUDY_CONFIG.totalDays &&
+        user.post_study_mind_experience && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mt-8 p-6 border border-accent/30 rounded-2xl bg-accent/5 text-center"
+          >
+            <p className="font-body">
+              Thank you for completing the study!
+              <br />
+              <span className="text-sm text-foreground/60">
+                Email research@imace.online with your participant ID (
+                {user.participant_id}) for a certificate.
+              </span>
+            </p>
+          </motion.div>
+        )}
     </div>
   );
 }
