@@ -81,7 +81,7 @@ export default function SessionPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-[100dvh] flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-foreground/20 border-t-foreground rounded-full animate-spin" />
       </div>
     );
@@ -100,13 +100,13 @@ export default function SessionPage() {
           {user.study_group === 'A' && (
             <iframe
               src="https://revarie.imace.online/lm-v1/samara"
-              className="w-full h-full border-0"
+              className="w-full h-[100dvh] border-0 rounded-xl overflow-hidden"
             />
           )}
           {user.study_group === 'B' && (
             <iframe
               src="https://revarie.imace.online/lm-v1/artery"
-              className="w-full h-full border-0"
+              className="w-full h-[100dvh] border-0 rounded-xl overflow-hidden"
             />
           )}
           {user.study_group === 'C' && (
