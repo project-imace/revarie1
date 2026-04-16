@@ -14,6 +14,14 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/vault/:path*',
+        destination: 'https://revarie-vault-api.revarie-lm-v1-study-1-vault.workers.dev/:path*',
+      },
+    ];
+  },
 };
 
 export default nextConfig;
