@@ -6,6 +6,7 @@ import { getCurrentUser } from '@/lib/auth';
 import { vaultFetch } from '@/lib/vault';
 import GlassCard from '@/components/ui/GlassCard';
 import SurveyForm from '@/components/ui/SurveyForm';
+import LoadingScreen from '@/components/ui/LoadingScreen';
 
 export default function PostSurveyPage() {
   const router = useRouter();
@@ -57,11 +58,7 @@ export default function PostSurveyPage() {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-[100dvh] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-foreground/20 border-t-foreground rounded-full animate-spin" />
-      </div>
-    );
+    return <LoadingScreen isVisible={true} />;
   }
 
   if (!questions) return null;

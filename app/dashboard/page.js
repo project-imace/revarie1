@@ -10,6 +10,7 @@ import { isNewDayAvailable, isBeforeSixAMIST } from "@/lib/ist";
 import { STUDY_CONFIG } from "@/study.config";
 import GlassCard from "@/components/ui/GlassCard";
 import ProgressBar from "@/components/ui/ProgressBar";
+import LoadingScreen from "@/components/ui/LoadingScreen";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -75,11 +76,7 @@ export default function DashboardPage() {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-[100dvh] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-foreground/20 border-t-foreground rounded-full animate-spin" />
-      </div>
-    );
+    return <LoadingScreen isVisible={true} />;
   }
 
   if (!user) {
