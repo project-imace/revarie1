@@ -13,8 +13,7 @@ export function proxy(request) {
   }
 
   if (isLoginPage && isLoggedIn) {
-    const participantId = sessionCookie.value;
-    return NextResponse.redirect(new URL(`/dashboard`, request.url));
+    return NextResponse.redirect(new URL(`${process.env.NEXT_PUBLIC_BASE_PATH}/dashboard`, request.url));
   }
 
   return NextResponse.next();

@@ -22,7 +22,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "assets.imace.online",
         port: "",
-        pathname: "/**",
+        pathname: "**",
       },
     ],
   },

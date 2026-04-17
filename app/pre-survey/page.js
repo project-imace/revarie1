@@ -22,11 +22,11 @@ export default function PreSurveyPage() {
         return;
       }
       if (u.has_onboarded) {
-        router.push('/dashboard');
+        router.push(`/dashboard`);
         return;
       }
       setUser(u);
-      const res = await fetch('/study-materials/mind-experience-pre.json');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/mind-experience-pre.json`);
       const data = await res.json();
       setQuestions(data);
       setLoading(false);
@@ -45,7 +45,7 @@ export default function PreSurveyPage() {
           payload: payload.main,
         }),
       });
-      router.push('/dashboard');
+      router.push(`/dashboard`);
     } catch (err) {
       alert('Submission failed. Please try again.');
       setLoading(false);

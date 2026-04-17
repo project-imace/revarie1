@@ -32,7 +32,7 @@ export default function LandingPage() {
         return;
       }
       await setAuthCookie(user.participant_id);
-      router.push('/dashboard');
+      router.push(`/dashboard`);
     } catch (err) {
       setError('We could not find you. Please check your credentials.');
     } finally {

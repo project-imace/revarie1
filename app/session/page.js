@@ -77,7 +77,7 @@ export default function SessionPage() {
       method: 'POST',
       body: JSON.stringify(payload),
     });
-    router.push('/dashboard');
+    router.push(`/dashboard`);
   };
 
   if (loading) {

@@ -23,13 +23,13 @@ export default function PostSurveyPage() {
         return;
       }
       if ((u.day_progress || 1) <= 14) {
-        router.push('/dashboard');
+        router.push(`/dashboard`);
         return;
       }
       setUser(u);
       const [mainRes, gRes] = await Promise.all([
-        fetch('/study-materials/mind-experience-post.json'),
-        fetch('/study-materials/godspeed-questions.json'),
+        fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/mind-experience-post.json`),
+        fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/godspeed-questions.json`),
       ]);
       setQuestions(await mainRes.json());
       setGodspeed(await gRes.json());
@@ -50,7 +50,7 @@ export default function PostSurveyPage() {
           godspeed: payload.godspeed,
         }),
       });
-      router.push('/dashboard');
+      router.push(`/dashboard`);
     } catch (err) {
       alert('Submission failed. Please try again.');
       setLoading(false);
