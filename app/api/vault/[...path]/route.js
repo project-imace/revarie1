@@ -3,7 +3,7 @@ async function handler(request) {
     const url = new URL(request.url);
     let pathname = url.pathname;
 
-    // Remove the '/api/vault' prefix to get the Worker endpoint
+    
     const endpoint = pathname.replace(/^\/api\/vault/, "") + url.search;
 
     const vaultUrl = process.env.VAULT_API_URL;
