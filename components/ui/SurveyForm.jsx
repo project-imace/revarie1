@@ -85,32 +85,89 @@ export default function SurveyForm({ questions, extraSection, onSubmit, submitLa
     const key = isExtra ? `extra-${sectionIdx}-${q.id}` : `${sectionIdx}-${q.id}`;
     const value = isExtra ? extraResponses[key] : responses[key];
     const error = errors[key];
+    const currentSec = isExtra ? extraSection.sections[sectionIdx] : allSections[sectionIdx];
 
     return (
-      <div key={q.id} className="mb-6">
-        <label className="block font-body text-foreground mb-2">{q.text}{q.required !== false && <span className="text-red-400 ml-1">*</span>}</label>
+      <div key={q.id} className="mb-10">
+        {q.type !== 'likert-5' && (
+          <label className="block font-body text-foreground mb-4 text-lg">
+            {q.text}{q.required !== false && <span className="text-red-400 ml-1">*</span>}
+          </label>
+        )}
+
         {q.type === 'likert' && (
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col gap-2">
             {q.options.map((opt, i) => (
-              <button type="button" key={i} onClick={() => isExtra ? handleExtraResponse(sectionIdx, q.id, i) : handleResponse(sectionIdx, q.id, i)} className={`px-4 py-2 min-h-[44px] rounded-lg border text-sm ${value === i ? 'bg-accent border-accent text-background' : 'bg-muted border-border text-foreground/80 hover:bg-muted/80'}`}>{opt}</button>
+              <motion.button
+                type="button"
+                key={i}
+                onClick={() => isExtra ? handleExtraResponse(sectionIdx, q.id, i) : handleResponse(sectionIdx, q.id, i)}
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                animate={{
+                  boxShadow: value === i ? '0 0 15px rgba(255,255,255,0.4)' : 'none'
+                }}
+                className={`w-full text-left px-6 py-4 rounded-xl border transition-colors duration-300 ${value === i ? 'bg-foreground border-foreground text-background font-medium' : 'bg-muted border-border text-foreground/80 hover:bg-muted/80'}`}
+              >
+                {opt}
+              </motion.button>
             ))}
           </div>
         )}
+
         {q.type === 'likert-7' && (
-          <div className="flex flex-wrap gap-2">
-            {[0,1,2,3,4,5,6].map(num => (
-              <button type="button" key={num} onClick={() => isExtra ? handleExtraResponse(sectionIdx, q.id, num) : handleResponse(sectionIdx, q.id, num)} className={`w-11 h-11 rounded-full border text-sm font-mono ${value === num ? 'bg-accent border-accent text-background' : 'bg-muted border-border text-foreground/80 hover:bg-muted/80'}`}>{num+1}</button>
-            ))}
+          <div className="flex flex-col gap-2 w-full max-w-2xl mx-auto">
+            <div className="flex justify-between w-full">
+              {[0,1,2,3,4,5,6].map(num => (
+                <motion.button
+                  type="button"
+                  key={num}
+                  onClick={() => isExtra ? handleExtraResponse(sectionIdx, q.id, num) : handleResponse(sectionIdx, q.id, num)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  animate={{
+                    boxShadow: value === num ? '0 0 15px rgba(255,255,255,0.4)' : 'none'
+                  }}
+                  className={`w-12 h-12 md:w-14 md:h-14 rounded-full border text-lg font-mono transition-colors duration-300 ${value === num ? 'bg-foreground border-foreground text-background font-bold' : 'bg-muted border-border text-foreground/80 hover:bg-muted/80'}`}
+                >
+                  {num+1}
+                </motion.button>
+              ))}
+            </div>
+            <div className="flex justify-between text-xs font-mono text-foreground/60 mt-2 px-1">
+              <span>{currentSec?.minLabel || "Strongly Disagree"}</span>
+              <span>{currentSec?.maxLabel || "Strongly Agree"}</span>
+            </div>
           </div>
         )}
+
         {q.type === 'likert-5' && (
-          <div className="flex flex-wrap gap-2">
-            {[1,2,3,4,5].map(num => (
-              <button type="button" key={num} onClick={() => isExtra ? handleExtraResponse(sectionIdx, q.id, num) : handleResponse(sectionIdx, q.id, num)} className={`w-10 h-10 rounded-full border text-sm font-mono ${value === num ? 'bg-accent border-accent text-background' : 'bg-muted border-border text-foreground/80 hover:bg-muted/80'}`}>{num}</button>
-            ))}
+          <div className="flex flex-col gap-4 w-full max-w-2xl mx-auto py-2">
+            <div className="flex justify-between text-sm md:text-base font-body text-foreground px-2">
+              <span className="text-left w-1/3">{q.text.split('—')[0]?.trim() || q.text.split('-')[0]?.trim()}</span>
+              <span className="text-right w-1/3">{q.text.split('—')[1]?.trim() || q.text.split('-')[1]?.trim()}</span>
+            </div>
+            <div className="flex justify-between w-full px-4">
+              {[1,2,3,4,5].map(num => (
+                <motion.button
+                  type="button"
+                  key={num}
+                  onClick={() => isExtra ? handleExtraResponse(sectionIdx, q.id, num) : handleResponse(sectionIdx, q.id, num)}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  animate={{
+                    boxShadow: value === num ? '0 0 15px rgba(255,255,255,0.4)' : 'none'
+                  }}
+                  className={`w-10 h-10 md:w-12 md:h-12 rounded-full border text-base font-mono transition-colors duration-300 ${value === num ? 'bg-foreground border-foreground text-background font-bold' : 'bg-muted border-border text-foreground/80 hover:bg-muted/80'}`}
+                >
+                  {num}
+                </motion.button>
+              ))}
+            </div>
           </div>
         )}
-        {error && <p className="text-red-400 text-xs mt-1">{error}</p>}
+
+        {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
       </div>
     );
   };

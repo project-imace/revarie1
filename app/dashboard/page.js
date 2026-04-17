@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { getCurrentUser, clearAuthCookie } from "@/lib/auth";
-import { isNewDayAvailable, isBeforeSixAMIST } from "@/lib/ist";
+import { isNewDayAvailable, isDormantPeriod } from "@/lib/ist";
 import { STUDY_CONFIG } from "@/study.config";
 import GlassCard from "@/components/ui/GlassCard";
 import ProgressBar from "@/components/ui/ProgressBar";
@@ -41,12 +41,12 @@ export default function DashboardPage() {
         const studyStart = new Date(STUDY_CONFIG.studyStartDate);
         const isAfterStart = now >= studyStart;
         const isNewDay = isNewDayAvailable(currentUser.last_login_date, now);
-        const isAfterSixAM = !isBeforeSixAMIST(now);
+        const isDormant = isDormantPeriod(now);
         const sessionsCompleted = (currentUser.day_progress || 1) - 1;
         const canStart =
           isAfterStart &&
           isNewDay &&
-          isAfterSixAM &&
+          !isDormant &&
           sessionsCompleted < STUDY_CONFIG.totalDays &&
           currentUser.has_onboarded;
 
@@ -56,10 +56,10 @@ export default function DashboardPage() {
           setMessage(
             "Today's session already completed. Next session unlocks at 6:00 AM IST.",
           );
-        } else if (!canStart && isAfterStart && !isAfterSixAM) {
-          setMessage("Next session unlocks at 6:00 AM IST.");
+        } else if (!canStart && isAfterStart && isDormant) {
+          setMessage("Study is currently dormant. Next session unlocks at 6:00 AM IST.");
         } else if (!canStart && !isAfterStart) {
-          setMessage("Study begins April 16, 2026 at 6:00 AM IST.");
+          setMessage("Study begins April 19, 2026 at 12:00 PM IST.");
         }
       } catch {
         setMessage("Failed to load data.");

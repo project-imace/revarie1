@@ -3,6 +3,7 @@
     {
       "id": "anthropomorphism",
       "title": "Anthropomorphism",
+      "instructions": "In this section, you will be asked to evaluate the system you just interacted with (i.e., the chatbot or the self-reflection manual, depending on your assigned group). The questionnaire consists of pairs of opposite adjectives (e.g., Fake – Natural, Unfriendly – Friendly). Each pair represents a scale. For each item, please rate where your experience lies, based on your interaction with the system. Some judgments may feel difficult to make—please provide your best estimate based on your overall experience during the interaction. There are no right or wrong answers. Respond honestly based on your personal impressions.",
       "questions": [
         { "id": "fake_natural", "text": "Fake — Natural", "type": "likert-5" },
         { "id": "machine_human", "text": "Machinelike — Humanlike", "type": "likert-5" },

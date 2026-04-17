@@ -9,6 +9,7 @@ import VamsSliders from '@/components/ui/VamsSliders';
 import TimerOverlay from '@/components/ui/TimerOverlay';
 import GlassCard from '@/components/ui/GlassCard';
 import LoadingScreen from '@/components/ui/LoadingScreen';
+import SelfReflection from '@/components/ui/SelfReflection';
 
 export default function SessionPage() {
   const router = useRouter();
@@ -107,10 +108,9 @@ export default function SessionPage() {
             />
           )}
           {user.study_group === 'C' && (
-            <textarea
-              className="w-full h-full bg-muted p-6 text-foreground resize-none focus:outline-none"
-              placeholder="Self-reflection space…"
-            />
+            <div className="w-full h-[100dvh] border-0 rounded-xl overflow-hidden">
+              <SelfReflection />
+            </div>
           )}
         </TimerOverlay>
       </div>

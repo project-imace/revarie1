@@ -42,6 +42,8 @@
       "id": "tias",
       "title": "Trust in Automation Scale (TIAS)",
       "instructions": "Below is a list of statements designed to evaluate your perceptions and sense of trust toward an AI-based system. At this stage, the term “system” refers to your preconceived understanding or general beliefs about automation and AI-based tools, based on your prior knowledge, exposure, or assumptions. Please read each statement carefully and indicate the response that best reflects the intensity of your agreement or impression. There are no right or wrong answers. Respond honestly based on your general expectations and beliefs about AI systems, even if you have not directly interacted with one.",
+      "minLabel": "Not at all",
+      "maxLabel": "Extremely",
       "questions": [
         { "id": "deceptive", "text": "The system is deceptive.", "type": "likert-7" },
         { "id": "underhanded", "text": "The system behaves in an underhanded manner.", "type": "likert-7" },
@@ -61,6 +63,8 @@
       "id": "mmp35",
       "title": "Mind Perception Scale (MMP-35)",
       "instructions": "Please tell us about your perception of the capacities of AI Agents. At this stage, the agent refers to your general understanding of an automated system or AI (e.g., chatbot, machine, or digital assistant) based on your prior beliefs or assumptions. Some judgments might be difficult to make; just give us your best guess based on your current understanding. Please indicate the extent to which you believe such a system is capable of each of the following capacities.",
+      "minLabel": "Not at all capable",
+      "maxLabel": "Completely capable",
       "questions": [
         { "id": "happy", "text": "Feeling happy", "type": "likert-7" },
         { "id": "tired", "text": "Feeling tired", "type": "likert-7" },
