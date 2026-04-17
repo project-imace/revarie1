@@ -3,7 +3,6 @@ async function handler(request) {
     const url = new URL(request.url);
     let pathname = url.pathname;
 
-    
     const endpoint = pathname.replace(/^\/api\/vault/, "") + url.search;
 
     const vaultUrl = process.env.VAULT_API_URL;
