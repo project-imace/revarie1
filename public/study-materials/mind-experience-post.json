@@ -42,6 +42,8 @@
       "id": "tias",
       "title": "Trust in Automation Scale (TIAS)",
       "instructions": "Below is a list of statements designed to evaluate your experience and sense of trust while interacting with an AI-based tool. At this stage, the term “system” refers specifically to the tool you interacted with during the study (i.e., the chatbot or the self-reflection manual, depending on your assigned group). Please read each statement carefully and select the response that best describes the intensity of your feelings or impressions based on your actual interaction and experience with the system. There are no right or wrong answers. Respond honestly based on your personal experience during the session.",
+      "minLabel": "Not at all",
+      "maxLabel": "Extremely",
       "questions": [
         { "id": "deceptive", "text": "The system is deceptive.", "type": "likert-7" },
         { "id": "underhanded", "text": "The system behaves in an underhanded manner.", "type": "likert-7" },
@@ -61,6 +63,8 @@
       "id": "mmp35",
       "title": "Mind Perception Scale (MMP-35)",
       "instructions": "Please tell us about your perception of the capacities of the agent you interacted with. At this stage, the agent refers specifically to the system you interacted with during the study (i.e., the chatbot or the self-reflection manual, depending on the group you were assigned). Some judgments might be difficult to make; just give us your best guess based on your actual experience during the interaction. Please indicate the extent to which you believe this system possesses each of the following capacities.",
+      "minLabel": "Not at all capable",
+      "maxLabel": "Completely capable",
       "questions": [
         { "id": "happy", "text": "Feeling happy", "type": "likert-7" },
         { "id": "tired", "text": "Feeling tired", "type": "likert-7" },
