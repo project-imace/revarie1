@@ -87,7 +87,7 @@ export default function LandingPage() {
           </summary>
           <div className="mt-4 text-foreground/70 space-y-3">
             <p>The study follows a 14‑day structured protocol consisting of pre‑study and post‑study assessments alongside daily interaction sessions. Participants are assigned to controlled groups involving interaction with different AI configurations or self‑reflection baselines, enabling comparative analysis of AI‑induced effects.</p>
-            <p>Psychometric instruments—including VAMS, PANAS, WHO‑5, and Godspeed—are used to quantify mood, affect, perceived agency, and relational dynamics across repeated sessions.</p>
+            <p>Psychometric instruments—including VAMS, PANAS, WHO‑5, TIAS, MMP35 and Godspeed Questionnaires—are used to quantify mood, affect, perceived agency, and relational dynamics across repeated sessions.</p>
           </div>
         </details>
         <details className="group">
