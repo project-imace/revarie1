@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-export function middleware(request) {
+export function proxy(request) {
   const sessionCookie = request.cookies.get('participantId');
   const isLoggedIn = !!sessionCookie?.value;
   const path = request.nextUrl.pathname;
@@ -13,8 +13,7 @@ export function middleware(request) {
   }
 
   if (isLoginPage && isLoggedIn) {
-    const participantId = sessionCookie.value;
-    return NextResponse.redirect(new URL(`/dashboard`, request.url));
+    return NextResponse.redirect(new URL(`${process.env.NEXT_PUBLIC_BASE_PATH}/dashboard`, request.url));
   }
 
   return NextResponse.next();

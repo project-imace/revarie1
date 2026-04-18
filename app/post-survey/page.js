@@ -6,6 +6,7 @@ import { getCurrentUser } from '@/lib/auth';
 import { vaultFetch } from '@/lib/vault';
 import GlassCard from '@/components/ui/GlassCard';
 import SurveyForm from '@/components/ui/SurveyForm';
+import LoadingScreen from '@/components/ui/LoadingScreen';
 
 export default function PostSurveyPage() {
   const router = useRouter();
@@ -22,13 +23,13 @@ export default function PostSurveyPage() {
         return;
       }
       if ((u.day_progress || 1) <= 14) {
-        router.push('/dashboard');
+        router.push(`/dashboard`);
         return;
       }
       setUser(u);
       const [mainRes, gRes] = await Promise.all([
-        fetch('/study-materials/mind-experience-post.json'),
-        fetch('/study-materials/godspeed-questions.json'),
+        fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/mind-experience-post.json`),
+        fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/godspeed-questions.json`),
       ]);
       setQuestions(await mainRes.json());
       setGodspeed(await gRes.json());
@@ -49,7 +50,7 @@ export default function PostSurveyPage() {
           godspeed: payload.godspeed,
         }),
       });
-      router.push('/dashboard');
+      router.push(`/dashboard`);
     } catch (err) {
       alert('Submission failed. Please try again.');
       setLoading(false);
@@ -57,11 +58,7 @@ export default function PostSurveyPage() {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-foreground/20 border-t-foreground rounded-full animate-spin" />
-      </div>
-    );
+    return <LoadingScreen isVisible={true} />;
   }
 
   if (!questions) return null;

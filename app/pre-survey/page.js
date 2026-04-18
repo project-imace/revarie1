@@ -6,6 +6,7 @@ import { getCurrentUser } from '@/lib/auth';
 import { vaultFetch } from '@/lib/vault';
 import GlassCard from '@/components/ui/GlassCard';
 import SurveyForm from '@/components/ui/SurveyForm';
+import LoadingScreen from '@/components/ui/LoadingScreen';
 
 export default function PreSurveyPage() {
   const router = useRouter();
@@ -21,11 +22,11 @@ export default function PreSurveyPage() {
         return;
       }
       if (u.has_onboarded) {
-        router.push('/dashboard');
+        router.push(`/dashboard`);
         return;
       }
       setUser(u);
-      const res = await fetch('/study-materials/mind-experience-pre.json');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/mind-experience-pre.json`);
       const data = await res.json();
       setQuestions(data);
       setLoading(false);
@@ -44,7 +45,7 @@ export default function PreSurveyPage() {
           payload: payload.main,
         }),
       });
-      router.push('/dashboard');
+      router.push(`/dashboard`);
     } catch (err) {
       alert('Submission failed. Please try again.');
       setLoading(false);
@@ -52,11 +53,7 @@ export default function PreSurveyPage() {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-foreground/20 border-t-foreground rounded-full animate-spin" />
-      </div>
-    );
+    return <LoadingScreen isVisible={true} />;
   }
 
   if (!questions) return null;
@@ -76,7 +73,7 @@ export default function PreSurveyPage() {
         />
       </GlassCard>
       <div className="flex justify-center mt-6">
-        <img src="https://assets.imace.online/image/psysynap.svg" alt="PsyCoSys" className="h-6 opacity-60" />
+        <img src="https://assets.imace.online/image/psysynap.svg" alt="PsyCoSys" className="h-20 opacity-60" />
       </div>
     </div>
   );

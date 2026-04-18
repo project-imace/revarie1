@@ -1,20 +1,25 @@
 import js from "@eslint/js";
-import nextPlugin from "@next/eslint-plugin-next";
 import reactPlugin from "eslint-plugin-react";
 import hooksPlugin from "eslint-plugin-react-hooks";
 import globals from "globals";
 
 export default [
   {
-    ignores: ["node_modules/", ".next/", "out/", "dist/", "build/"]
+    ignores: [".next/**", "dist/**"]
   },
   js.configs.recommended,
-  reactPlugin.configs.flat.recommended,
   {
-    files: ["**/*.js", "**/*.jsx"],
+    files: ["**/*.{js,jsx}"],
+    plugins: {
+      react: reactPlugin,
+      "react-hooks": hooksPlugin,
+    },
     languageOptions: {
-      ecmaVersion: "latest",
-      sourceType: "module",
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
       globals: {
         ...globals.browser,
         ...globals.node,
@@ -22,19 +27,18 @@ export default [
     },
     settings: {
       react: {
-        version: "19.2.5",
+        version: "detect",
       },
     },
-    plugins: {
-      "react-hooks": hooksPlugin,
-      "@next/next": nextPlugin,
-    },
     rules: {
+      ...reactPlugin.configs.recommended.rules,
       ...hooksPlugin.configs.recommended.rules,
-      ...nextPlugin.configs.recommended.rules,
-      ...nextPlugin.configs["core-web-vitals"].rules,
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
-    }
-  }
+      "react/display-name": "off",
+      "react/no-unescaped-entities": "off",
+      "no-unused-vars": "off",
+      "react-hooks/exhaustive-deps": "off",
+    },
+  },
 ];

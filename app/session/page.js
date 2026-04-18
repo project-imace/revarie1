@@ -8,6 +8,8 @@ import { STUDY_CONFIG } from '@/study.config';
 import VamsSliders from '@/components/ui/VamsSliders';
 import TimerOverlay from '@/components/ui/TimerOverlay';
 import GlassCard from '@/components/ui/GlassCard';
+import LoadingScreen from '@/components/ui/LoadingScreen';
+import SelfReflection from '@/components/ui/SelfReflection';
 
 export default function SessionPage() {
   const router = useRouter();
@@ -76,15 +78,11 @@ export default function SessionPage() {
       method: 'POST',
       body: JSON.stringify(payload),
     });
-    router.push('/dashboard');
+    router.push(`/dashboard`);
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-foreground/20 border-t-foreground rounded-full animate-spin" />
-      </div>
-    );
+    return <LoadingScreen isVisible={true} />;
   }
 
   if (!user) return null;
@@ -100,20 +98,19 @@ export default function SessionPage() {
           {user.study_group === 'A' && (
             <iframe
               src="https://revarie.imace.online/lm-v1/samara"
-              className="w-full h-full border-0"
+              className="w-full h-[100dvh] border-0 rounded-xl overflow-hidden"
             />
           )}
           {user.study_group === 'B' && (
             <iframe
               src="https://revarie.imace.online/lm-v1/artery"
-              className="w-full h-full border-0"
+              className="w-full h-[100dvh] border-0 rounded-xl overflow-hidden"
             />
           )}
           {user.study_group === 'C' && (
-            <textarea
-              className="w-full h-full bg-muted p-6 text-foreground resize-none focus:outline-none"
-              placeholder="Self-reflection space…"
-            />
+            <div className="w-full h-[100dvh] border-0 rounded-xl overflow-hidden">
+              <SelfReflection />
+            </div>
           )}
         </TimerOverlay>
       </div>

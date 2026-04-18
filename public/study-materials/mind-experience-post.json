@@ -3,7 +3,7 @@
     {
       "id": "panas",
       "title": "PANAS Scale",
-      "instructions": "Read each word and select the response that best reflects how you generally feel, on average.",
+      "instructions": "This questionnaire consists of a list of words that describe different feelings and emotional states. Please read each word carefully and select the response that best reflects how you generally feel, that is, how you feel on average, rather than how you feel at a particular moment. There are no right or wrong answers. Your responses should reflect your typical emotional experience as honestly as possible.",
       "questions": [
         { "id": "interested", "text": "Interested", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
         { "id": "distressed", "text": "Distressed", "type": "likert", "options": ["Very slightly or not at all", "A little", "Moderately", "Quite a bit", "Extremely"] },
@@ -29,7 +29,7 @@
     {
       "id": "who5",
       "title": "WHO-5 Well-Being Index",
-      "instructions": "Select the option that best describes how you have felt during the last two weeks.",
+      "instructions": "This questionnaire consists of a set of statements related to your overall well-being. Please read each statement carefully and select one response per item that best describes how you have felt during the last two weeks. There are no right or wrong answers. Choose the option that most accurately reflects your experiences over this time period.",
       "questions": [
         { "id": "cheerful", "text": "I have felt cheerful in good spirits.", "type": "likert", "options": ["All of the time", "Most of the time", "More than half the time", "Less than half the time", "Some of the time", "At no time"] },
         { "id": "calm", "text": "I have felt calm and relaxed.", "type": "likert", "options": ["All of the time", "Most of the time", "More than half the time", "Less than half the time", "Some of the time", "At no time"] },
@@ -41,7 +41,9 @@
     {
       "id": "tias",
       "title": "Trust in Automation Scale (TIAS)",
-      "instructions": "Evaluate the system you interacted with during the study.",
+      "instructions": "Below is a list of statements designed to evaluate your experience and sense of trust while interacting with an AI-based tool. At this stage, the term “system” refers specifically to the tool you interacted with during the study (i.e., the chatbot or the self-reflection manual, depending on your assigned group). Please read each statement carefully and select the response that best describes the intensity of your feelings or impressions based on your actual interaction and experience with the system. There are no right or wrong answers. Respond honestly based on your personal experience during the session.",
+      "minLabel": "Not at all",
+      "maxLabel": "Extremely",
       "questions": [
         { "id": "deceptive", "text": "The system is deceptive.", "type": "likert-7" },
         { "id": "underhanded", "text": "The system behaves in an underhanded manner.", "type": "likert-7" },
@@ -60,7 +62,9 @@
     {
       "id": "mmp35",
       "title": "Mind Perception Scale (MMP-35)",
-      "instructions": "Indicate the extent to which you believe the system you interacted with possesses each capacity.",
+      "instructions": "Please tell us about your perception of the capacities of the agent you interacted with. At this stage, the agent refers specifically to the system you interacted with during the study (i.e., the chatbot or the self-reflection manual, depending on the group you were assigned). Some judgments might be difficult to make; just give us your best guess based on your actual experience during the interaction. Please indicate the extent to which you believe this system possesses each of the following capacities.",
+      "minLabel": "Not at all capable",
+      "maxLabel": "Completely capable",
       "questions": [
         { "id": "happy", "text": "Feeling happy", "type": "likert-7" },
         { "id": "tired", "text": "Feeling tired", "type": "likert-7" },

@@ -32,7 +32,7 @@ export default function LandingPage() {
         return;
       }
       await setAuthCookie(user.participant_id);
-      router.push('/dashboard');
+      router.push(`/dashboard`);
     } catch (err) {
       setError('We could not find you. Please check your credentials.');
     } finally {
@@ -43,7 +43,7 @@ export default function LandingPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-8">
-        <Image src="https://assets.imace.online/image/psysynap.svg" alt="PsyCoSys Synapsys" width={400} height={60} className="mx-auto h-10 w-auto" />
+        <Image src="https://assets.imace.online/image/psysynap.svg" alt="PsyCoSys Synapsys" width={800} height={120} className="mx-auto h-30 w-auto" />
         <p className="font-mono text-sm text-foreground/60 mt-4">Exploring psycho-cognitive frontiers of Brains, Minds and Machines</p>
       </motion.div>
 

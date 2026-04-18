@@ -11,10 +11,19 @@
   --color-accent: #4ade80;
 }
 
+@keyframes slowGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 body {
-  background-color: var(--color-background);
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+  background-size: 200% 200%;
+  animation: slowGradient 15s ease infinite;
   color: var(--color-foreground);
   font-family: var(--font-body);
+  min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
