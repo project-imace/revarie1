@@ -20,7 +20,6 @@ async function handler(request) {
     }
 
     const workerUrl = `${vaultUrl}${endpoint}`;
-    console.log("workerUrl", workerUrl);
 
     const fetchOptions = {
       method: request.method,
