@@ -28,8 +28,8 @@ export default function PostSurveyPage() {
       }
       setUser(u);
       const [mainRes, gRes] = await Promise.all([
-        fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/mind-experience-post.json`),
-        fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/godspeed-questions.json`),
+        fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/mind-experience-post.json`, { cache: 'force-cache' }),
+        fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/godspeed-questions.json`, { cache: 'force-cache' }),
       ]);
       setQuestions(await mainRes.json());
       setGodspeed(await gRes.json());

@@ -26,7 +26,7 @@ export default function PreSurveyPage() {
         return;
       }
       setUser(u);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/mind-experience-pre.json`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/mind-experience-pre.json`, { cache: 'force-cache' });
       const data = await res.json();
       setQuestions(data);
       setLoading(false);
