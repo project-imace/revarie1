@@ -7,7 +7,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {}
   },
   "dependencies": {
     "autoprefixer": "^10.5.0",
@@ -25,6 +30,7 @@
     "zustand": "^5.0.0"
   },
   "devDependencies": {
+    "jest": "^30.2.0",
     "@eslint/js": "^10.0.1",
     "@next/eslint-plugin-next": "^16.2.3",
     "@tailwindcss/postcss": "^4.2.2",
