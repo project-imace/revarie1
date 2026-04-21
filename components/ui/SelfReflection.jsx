@@ -34,7 +34,7 @@ export default function SelfReflection() {
   const handleStart = () => {
     setStarted(true);
     if (audioRef.current) {
-      audioRef.current.play().catch(e => console.error("Audio playback failed", e));
+      audioRef.current.play().catch(() => {});
     }
   };
 
@@ -44,7 +44,7 @@ export default function SelfReflection() {
       const currentSrc = audioRef.current.src;
       const nextSrc = currentSrc.includes('self1') ? AUDIO_TRACKS[1] : AUDIO_TRACKS[0];
       audioRef.current.src = nextSrc;
-      audioRef.current.play().catch(e => console.error("Audio loop failed", e));
+      audioRef.current.play().catch(() => {});
     }
   };
 
