@@ -35,7 +35,12 @@ async function handler(request) {
     }
 
     const res = await fetch(workerUrl, fetchOptions);
-    const data = await res.text();
+    let data = await res.text();
+
+    if (!res.ok) {
+      console.error(`Vault API error ${res.status}:`, data);
+      data = JSON.stringify({ error: `Vault API error ${res.status}` });
+    }
 
     const responseHeaders = new Headers(res.headers);
     responseHeaders.set("Content-Type", "application/json");
