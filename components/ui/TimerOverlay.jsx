@@ -56,7 +56,7 @@ export default function TimerOverlay({ mandatorySeconds, maxExtraSeconds, onComp
   const handleEnd = (reason = null) => {
     clearInterval(intervalRef.current);
     const extraTime = Math.max(0, elapsedSeconds - totalMandatory);
-    onComplete(extraTime, true, reason || 'user_ended');
+    onComplete(extraTime, false, reason || 'user_ended');
   };
 
   const remainingExtra = totalMax - elapsedSeconds;

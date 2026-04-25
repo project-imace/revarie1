@@ -59,7 +59,7 @@ export default function DashboardPage() {
           } else if (sessionsCompleted >= STUDY_CONFIG.totalDays) {
             setMessage("All sessions completed! Thank you for your participation.");
           } else if (sessionsCompleted >= currentStudyDay) {
-            setMessage("Today's session completed. Next session unlocks tomorrow at 6:00 AM IST.");
+            setMessage(`${sessionsCompleted} ${sessionsCompleted === 1 ? 'session' : 'sessions'} done. Next session unlocks tomorrow at 6:00 AM IST.`);
           } else if (!currentUser.has_onboarded) {
             setMessage("Please complete the pre-study survey to begin your first session.");
           }

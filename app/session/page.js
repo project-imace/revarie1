@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { getCurrentUser } from '@/lib/auth';
 import { vaultFetch } from '@/lib/vault';
 import { STUDY_CONFIG } from '@/study.config';
+import { getCurrentStudyDay, isDormantPeriod } from '@/lib/ist';
 import VamsSliders from '@/components/ui/VamsSliders';
 import TimerOverlay from '@/components/ui/TimerOverlay';
 import GlassCard from '@/components/ui/GlassCard';
@@ -26,9 +27,21 @@ export default function SessionPage() {
       const u = await getCurrentUser();
       if (!u || !u.has_onboarded) {
         router.push('/');
-      } else {
-        setUser(u);
+        return;
       }
+
+      // Session availability check
+      const now = new Date();
+      const currentStudyDay = getCurrentStudyDay(STUDY_CONFIG.studyStartDate, now);
+      const isDormant = isDormantPeriod(now);
+      const sessionsCompleted = (u.day_progress || 1) - 1;
+
+      if (isDormant || sessionsCompleted >= currentStudyDay || sessionsCompleted >= STUDY_CONFIG.totalDays) {
+        router.push('/dashboard');
+        return;
+      }
+
+      setUser(u);
       setLoading(false);
     };
     fetchUser();
