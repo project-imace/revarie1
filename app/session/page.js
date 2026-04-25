@@ -89,7 +89,7 @@ export default function SessionPage() {
 
   if (phase === 'session') {
     return (
-      <div className="fixed inset-0 z-50 bg-background">
+      <div className="fixed inset-0 z-50 bg-background flex flex-col">
         <TimerOverlay
           mandatorySeconds={STUDY_CONFIG.mandatoryChatMinutes * 60}
           maxExtraSeconds={STUDY_CONFIG.maxExtraMinutes * 60}
@@ -98,17 +98,17 @@ export default function SessionPage() {
           {user.study_group === 'A' && (
             <iframe
               src="https://revarie.imace.online/lm-v1/samara"
-              className="w-full h-[100dvh] border-0 rounded-xl overflow-hidden"
+              className="w-full h-full flex-1 border-0"
             />
           )}
           {user.study_group === 'B' && (
             <iframe
               src="https://revarie.imace.online/lm-v1/artery"
-              className="w-full h-[100dvh] border-0 rounded-xl overflow-hidden"
+              className="w-full h-full flex-1 border-0"
             />
           )}
           {user.study_group === 'C' && (
-            <div className="w-full h-[100dvh] border-0 rounded-xl overflow-hidden">
+            <div className="w-full h-full flex-1 border-0">
               <SelfReflection />
             </div>
           )}
@@ -118,7 +118,7 @@ export default function SessionPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
+    <div className="max-w-3xl mx-auto px-2 md:px-4 py-6 md:py-12">
       <GlassCard>
         {phase === 'pre-vams' && (
           <>
