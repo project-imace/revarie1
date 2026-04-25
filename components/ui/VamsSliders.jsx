@@ -20,9 +20,9 @@ export default function VamsSliders({ questions, onSubmit, submitLabel = 'Contin
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
       {questions.map((q) => (
-        <div key={q.id} className="space-y-2">
+        <div key={q.id} className="space-y-1 md:space-y-2">
           <div className="flex justify-between items-center">
             <label className="font-mono text-sm text-foreground/80">{q.label}</label>
             <span className="font-mono text-xs text-foreground/50">{values[q.id]}</span>
