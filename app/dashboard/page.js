@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { getCurrentUser, clearAuthCookie } from "@/lib/auth";
-import { isNewDayAvailable, isDormantPeriod } from "@/lib/ist";
+import { getCurrentStudyDay, isDormantPeriod } from "@/lib/ist";
 import { STUDY_CONFIG } from "@/study.config";
 import GlassCard from "@/components/ui/GlassCard";
 import ProgressBar from "@/components/ui/ProgressBar";
@@ -40,26 +40,42 @@ export default function DashboardPage() {
         const now = new Date();
         const studyStart = new Date(STUDY_CONFIG.studyStartDate);
         const isAfterStart = now >= studyStart;
-        const isNewDay = isNewDayAvailable(currentUser.last_login_date, now);
+        const currentStudyDay = getCurrentStudyDay(STUDY_CONFIG.studyStartDate, now);
         const isDormant = isDormantPeriod(now);
         const sessionsCompleted = (currentUser.day_progress || 1) - 1;
+        
         const canStart =
           isAfterStart &&
-          isNewDay &&
           !isDormant &&
           sessionsCompleted < STUDY_CONFIG.totalDays &&
+          sessionsCompleted < currentStudyDay &&
           currentUser.has_onboarded;
 
         setSessionAvailable(canStart);
 
-        if (!canStart && isAfterStart && !isNewDay) {
-          setMessage(
-            "Today's session already completed. Next session unlocks at 6:00 AM IST.",
-          );
-        } else if (!canStart && isAfterStart && isDormant) {
-          setMessage("Study is currently dormant. Next session unlocks at 6:00 AM IST.");
+        if (!canStart && isAfterStart) {
+          if (isDormant) {
+            setMessage("Study is currently dormant. Next session unlocks at 6:00 AM IST.");
+          } else if (sessionsCompleted >= STUDY_CONFIG.totalDays) {
+            setMessage("All sessions completed! Thank you for your participation.");
+          } else if (sessionsCompleted >= currentStudyDay) {
+            setMessage("Today's session completed. Next session unlocks tomorrow at 6:00 AM IST.");
+          } else if (!currentUser.has_onboarded) {
+            setMessage("Please complete the pre-study survey to begin your first session.");
+          }
         } else if (!canStart && !isAfterStart) {
-          setMessage("Study begins April 19, 2026 at 12:00 PM IST.");
+          const startDate = studyStart.toLocaleDateString('en-US', { 
+            month: 'long', 
+            day: 'numeric', 
+            year: 'numeric' 
+          });
+          const startTime = studyStart.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+            timeZoneName: 'short'
+          });
+          setMessage(`Study begins ${startDate} at ${startTime}.`);
         }
       } catch {
         setMessage("Failed to load data.");
