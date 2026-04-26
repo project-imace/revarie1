@@ -3,9 +3,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function TimerOverlay({ mandatorySeconds, maxExtraSeconds, onComplete, children }) {
-  const [phase, setPhase] = useState('mandatory');
-  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+export default function TimerOverlay({ mandatorySeconds, maxExtraSeconds, onComplete, initialSeconds = 0, children }) {
+  const [phase, setPhase] = useState(() => {
+    if (initialSeconds >= mandatorySeconds + maxExtraSeconds) return 'completed';
+    if (initialSeconds >= mandatorySeconds) return 'prompt';
+    return 'mandatory';
+  });
+  const [elapsedSeconds, setElapsedSeconds] = useState(initialSeconds);
   const [isMaximized, setIsMaximized] = useState(true);
   const intervalRef = useRef(null);
 

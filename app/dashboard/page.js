@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { getCurrentUser, clearAuthCookie } from "@/lib/auth";
-import { getCurrentStudyDay, isDormantPeriod } from "@/lib/ist";
+import { getCurrentStudyDay, isDormantPeriod, isNewDayAvailable } from "@/lib/ist";
 import { STUDY_CONFIG } from "@/study.config";
 import GlassCard from "@/components/ui/GlassCard";
 import ProgressBar from "@/components/ui/ProgressBar";
@@ -43,10 +43,14 @@ export default function DashboardPage() {
         const currentStudyDay = getCurrentStudyDay(STUDY_CONFIG.studyStartDate, now);
         const isDormant = isDormantPeriod(now);
         const sessionsCompleted = (currentUser.day_progress || 1) - 1;
+        const hasDoneToday = currentUser.last_completed_session_timestamp
+          ? !isNewDayAvailable(currentUser.last_completed_session_timestamp, now)
+          : false;
         
         const canStart =
           isAfterStart &&
           !isDormant &&
+          !hasDoneToday &&
           sessionsCompleted < STUDY_CONFIG.totalDays &&
           sessionsCompleted < currentStudyDay &&
           currentUser.has_onboarded;
@@ -58,6 +62,8 @@ export default function DashboardPage() {
             setMessage("Study is currently dormant. Next session unlocks at 6:00 AM IST.");
           } else if (sessionsCompleted >= STUDY_CONFIG.totalDays) {
             setMessage("All sessions completed! Thank you for your participation.");
+          } else if (hasDoneToday) {
+            setMessage(`Session ${sessionsCompleted} done. Next session unlocks tomorrow at 6:00 AM IST.`);
           } else if (sessionsCompleted >= currentStudyDay) {
             setMessage(`${sessionsCompleted} ${sessionsCompleted === 1 ? 'session' : 'sessions'} done. Next session unlocks tomorrow at 6:00 AM IST.`);
           } else if (!currentUser.has_onboarded) {

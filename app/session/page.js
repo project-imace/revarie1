@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { getCurrentUser } from '@/lib/auth';
 import { vaultFetch } from '@/lib/vault';
 import { STUDY_CONFIG } from '@/study.config';
-import { getCurrentStudyDay, isDormantPeriod } from '@/lib/ist';
+import { getCurrentStudyDay, isDormantPeriod, isNewDayAvailable } from '@/lib/ist';
 import VamsSliders from '@/components/ui/VamsSliders';
 import TimerOverlay from '@/components/ui/TimerOverlay';
 import GlassCard from '@/components/ui/GlassCard';
@@ -18,6 +18,7 @@ export default function SessionPage() {
   const [phase, setPhase] = useState('pre-vams');
   const [sessionId, setSessionId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [initialElapsed, setInitialElapsed] = useState(0);
   const [extraTime, setExtraTime] = useState(0);
   const [dismissed, setDismissed] = useState(false);
   const [dismissalReason, setDismissalReason] = useState('');
@@ -30,13 +31,30 @@ export default function SessionPage() {
         return;
       }
 
+      // Check for active session recovery
+      if (u.active_session) {
+        const startTime = u.active_session.created_at;
+        const now = Date.now();
+        const elapsed = Math.floor((now - startTime) / 1000);
+        
+        setSessionId(u.active_session.session_id);
+        setInitialElapsed(elapsed);
+        setPhase('session');
+        setUser(u);
+        setLoading(false);
+        return;
+      }
+
       // Session availability check
       const now = new Date();
       const currentStudyDay = getCurrentStudyDay(STUDY_CONFIG.studyStartDate, now);
       const isDormant = isDormantPeriod(now);
       const sessionsCompleted = (u.day_progress || 1) - 1;
+      const hasDoneToday = u.last_completed_session_timestamp
+        ? !isNewDayAvailable(u.last_completed_session_timestamp, now)
+        : false;
 
-      if (isDormant || sessionsCompleted >= currentStudyDay || sessionsCompleted >= STUDY_CONFIG.totalDays) {
+      if (isDormant || hasDoneToday || sessionsCompleted >= currentStudyDay || sessionsCompleted >= STUDY_CONFIG.totalDays) {
         router.push('/dashboard');
         return;
       }
@@ -106,6 +124,7 @@ export default function SessionPage() {
         <TimerOverlay
           mandatorySeconds={STUDY_CONFIG.mandatoryChatMinutes * 60}
           maxExtraSeconds={STUDY_CONFIG.maxExtraMinutes * 60}
+          initialSeconds={initialElapsed}
           onComplete={handleSessionComplete}
         >
           {user.study_group === 'A' && (
