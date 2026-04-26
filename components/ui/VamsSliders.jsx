@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-export default function VamsSliders({ questions, onSubmit, submitLabel = 'Continue' }) {
+export default function VamsSliders({ questions, onSubmit, submitLabel = 'Continue', isLoading = false }) {
   const [values, setValues] = useState(() => {
     const initial = {};
     questions.forEach(q => { initial[q.id] = 50; });
@@ -16,6 +16,7 @@ export default function VamsSliders({ questions, onSubmit, submitLabel = 'Contin
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (isLoading) return;
     onSubmit(values);
   };
 
@@ -43,11 +44,14 @@ export default function VamsSliders({ questions, onSubmit, submitLabel = 'Contin
       ))}
       <motion.button
         type="submit"
-        whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 0.99 }}
-        className="w-full py-3 mt-4 bg-foreground text-background font-mono rounded-lg hover:bg-foreground/90 transition"
+        disabled={isLoading}
+        whileHover={isLoading ? {} : { scale: 1.01 }}
+        whileTap={isLoading ? {} : { scale: 0.99 }}
+        className={`w-full py-3 mt-4 bg-foreground text-background font-mono rounded-lg hover:bg-foreground/90 transition ${
+          isLoading ? 'opacity-50 cursor-not-allowed' : ''
+        }`}
       >
-        {submitLabel}
+        {isLoading ? 'Processing...' : submitLabel}
       </motion.button>
     </form>
   );
