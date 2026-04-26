@@ -33,6 +33,8 @@ export default function TimerOverlay({ mandatorySeconds, maxExtraSeconds, onComp
       }, 30000); // show for 5 seconds every 30 seconds
 
       intervalRef.current = setInterval(() => {
+        if (document.hidden) return;
+        
         setElapsedSeconds(prev => {
           const next = prev + 1;
           if (phase === 'mandatory' && next >= totalMandatory) {
