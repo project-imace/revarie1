@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function TimerOverlay({ mandatorySeconds, maxExtraSeconds, onComplete, children }) {
   const [phase, setPhase] = useState('mandatory');
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
-  const [showTimer, setShowTimer] = useState(true);
+  const [isMaximized, setIsMaximized] = useState(true);
   const intervalRef = useRef(null);
 
   const totalMandatory = mandatorySeconds;
@@ -17,8 +17,8 @@ export default function TimerOverlay({ mandatorySeconds, maxExtraSeconds, onComp
       let hideTimeout = null;
 
       const showTimerInterval = setInterval(() => {
-        setShowTimer(true);
-        hideTimeout = setTimeout(() => setShowTimer(false), 5000);
+        setIsMaximized(true);
+        hideTimeout = setTimeout(() => setIsMaximized(false), 5000);
       }, 30000); // show for 5 seconds every 30 seconds
 
       intervalRef.current = setInterval(() => {
@@ -38,7 +38,7 @@ export default function TimerOverlay({ mandatorySeconds, maxExtraSeconds, onComp
       }, 1000);
 
       // Initial timeout to hide the timer after first 5 seconds
-      const initialHide = setTimeout(() => setShowTimer(false), 5000);
+      const initialHide = setTimeout(() => setIsMaximized(false), 5000);
 
       return () => {
         clearInterval(intervalRef.current);
@@ -51,7 +51,7 @@ export default function TimerOverlay({ mandatorySeconds, maxExtraSeconds, onComp
 
   const handleContinue = () => {
     setPhase('extra');
-    setShowTimer(true); // Show timer briefly when entering extra phase
+    setIsMaximized(true); // Show timer briefly when entering extra phase
   };
   const handleEnd = (reason = null) => {
     clearInterval(intervalRef.current);
@@ -63,20 +63,40 @@ export default function TimerOverlay({ mandatorySeconds, maxExtraSeconds, onComp
   const mins = Math.floor(remainingExtra / 60).toString().padStart(2, '0');
   const secs = (remainingExtra % 60).toString().padStart(2, '0');
 
+  const remainingMandatory = totalMandatory - elapsedSeconds;
+  const manMins = Math.floor(Math.max(0, remainingMandatory) / 60).toString().padStart(2, '0');
+  const manSecs = (Math.max(0, remainingMandatory) % 60).toString().padStart(2, '0');
+
   return (
     <div className="relative w-full h-full">
       {children}
       <div className="absolute top-4 right-4 z-40 pointer-events-none flex flex-col items-end gap-2">
         <div className="pointer-events-auto group">
           <AnimatePresence>
-            {phase === 'mandatory' && showTimer && (
+            {phase === 'mandatory' && (
               <motion.div
+                layout
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="bg-black/70 backdrop-blur-sm text-foreground/80 text-xs px-4 py-1.5 rounded-full border border-border"
+                className="bg-black/70 backdrop-blur-sm text-foreground/80 text-xs px-4 py-1.5 rounded-full border border-border flex items-center gap-3 overflow-hidden"
               >
-                Session in progress. Cannot terminate until 10 minutes.
+                <motion.span layout className="font-mono whitespace-nowrap">
+                  {manMins}:{manSecs}
+                </motion.span>
+                <AnimatePresence>
+                  {isMaximized && (
+                    <motion.span
+                      layout
+                      initial={{ opacity: 0, width: 0 }}
+                      animate={{ opacity: 1, width: 'auto' }}
+                      exit={{ opacity: 0, width: 0 }}
+                      className="whitespace-nowrap"
+                    >
+                      Session in progress. Cannot terminate until 10 minutes.
+                    </motion.span>
+                  )}
+                </AnimatePresence>
               </motion.div>
             )}
           </AnimatePresence>
@@ -91,15 +111,30 @@ export default function TimerOverlay({ mandatorySeconds, maxExtraSeconds, onComp
             </motion.div>
           )}
           <AnimatePresence>
-            {phase === 'extra' && showTimer && (
+            {phase === 'extra' && (
               <motion.div
+                layout
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="bg-black/70 backdrop-blur-sm text-foreground text-sm px-4 py-1.5 rounded-full border border-border flex items-center gap-3"
+                className="bg-black/70 backdrop-blur-sm text-foreground text-sm px-4 py-1.5 rounded-full border border-border flex items-center gap-3 overflow-hidden"
               >
-                <span>Extra time: {mins}:{secs}</span>
-                <button onClick={() => handleEnd('user_ended_extra')} className="bg-red-600 hover:bg-red-700 text-white text-xs px-3 py-1 rounded-full transition">End Now</button>
+                <motion.div layout className="flex items-center gap-2 whitespace-nowrap">
+                  <AnimatePresence>
+                    {isMaximized && (
+                      <motion.span
+                        layout
+                        initial={{ opacity: 0, width: 0 }}
+                        animate={{ opacity: 1, width: 'auto' }}
+                        exit={{ opacity: 0, width: 0 }}
+                      >
+                        Extra time:
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                  <motion.span layout className="font-mono">{mins}:{secs}</motion.span>
+                </motion.div>
+                <motion.button layout onClick={() => handleEnd('user_ended_extra')} className="bg-red-600 hover:bg-red-700 text-white text-xs px-3 py-1 rounded-full transition whitespace-nowrap">End Now</motion.button>
               </motion.div>
             )}
           </AnimatePresence>
