@@ -12,11 +12,18 @@ export default function TimerOverlay({ mandatorySeconds, maxExtraSeconds, onComp
   const [elapsedSeconds, setElapsedSeconds] = useState(initialSeconds);
   const [isMaximized, setIsMaximized] = useState(true);
   const intervalRef = useRef(null);
+  const hasCalledOnComplete = useRef(false);
 
   const totalMandatory = mandatorySeconds;
   const totalMax = mandatorySeconds + maxExtraSeconds;
 
   useEffect(() => {
+    if (phase === 'completed' && !hasCalledOnComplete.current) {
+      hasCalledOnComplete.current = true;
+      onComplete(maxExtraSeconds, false, 'timer_expired');
+      return;
+    }
+
     if (phase === 'mandatory' || phase === 'extra') {
       let hideTimeout = null;
 
@@ -35,6 +42,7 @@ export default function TimerOverlay({ mandatorySeconds, maxExtraSeconds, onComp
           if (phase === 'extra' && next >= totalMax) {
             setPhase('completed');
             clearInterval(intervalRef.current);
+            hasCalledOnComplete.current = true;
             onComplete(maxExtraSeconds, false, null);
           }
           return next;
@@ -51,7 +59,7 @@ export default function TimerOverlay({ mandatorySeconds, maxExtraSeconds, onComp
         if (hideTimeout) clearTimeout(hideTimeout);
       };
     }
-  }, [phase, totalMandatory, totalMax, onComplete]);
+  }, [phase, totalMandatory, totalMax, onComplete, maxExtraSeconds]);
 
   const handleContinue = () => {
     setPhase('extra');
@@ -60,6 +68,7 @@ export default function TimerOverlay({ mandatorySeconds, maxExtraSeconds, onComp
   const handleEnd = (reason = null) => {
     clearInterval(intervalRef.current);
     const extraTime = Math.max(0, elapsedSeconds - totalMandatory);
+    hasCalledOnComplete.current = true;
     onComplete(extraTime, false, reason || 'user_ended');
   };
 

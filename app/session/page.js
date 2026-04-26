@@ -36,7 +36,17 @@ export default function SessionPage() {
         const startTime = u.active_session.created_at;
         const now = Date.now();
         const elapsed = Math.floor((now - startTime) / 1000);
-        
+        const totalMaxSeconds = (STUDY_CONFIG.mandatoryChatMinutes + STUDY_CONFIG.maxExtraMinutes) * 60;
+
+        if (elapsed >= totalMaxSeconds) {
+          setSessionId(u.active_session.session_id);
+          setExtraTime(STUDY_CONFIG.maxExtraMinutes * 60);
+          setPhase('post-vams');
+          setUser(u);
+          setLoading(false);
+          return;
+        }
+
         setSessionId(u.active_session.session_id);
         setInitialElapsed(elapsed);
         setPhase('session');
