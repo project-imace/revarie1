@@ -31,8 +31,8 @@ export default function PostSurveyPage() {
         fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/mind-experience-post.json`, { cache: 'force-cache' }),
         fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/godspeed-questions.json`, { cache: 'force-cache' }),
       ]);
-      setQuestions(await mainRes.json());
-      setGodspeed(await gRes.json());
+      setQuestions(questionsData);
+      setGodspeed(godspeedData);
       setLoading(false);
     };
     init();

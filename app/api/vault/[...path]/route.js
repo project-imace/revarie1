@@ -1,15 +1,10 @@
 async function handler(request) {
   try {
     const url = new URL(request.url);
-    let pathname = url.pathname;
-
-    // Remove the '/api/vault' prefix to get the Worker endpoint
-    const endpoint = pathname.replace(/^\/api\/vault/, "") + url.search;
-
-    const vaultUrl = process.env.VAULT_API_URL;
+    const vaultUrlEnv = process.env.VAULT_API_URL;
     const vaultKey = process.env.VAULT_API_KEY;
 
-    if (!vaultUrl || !vaultKey) {
+    if (!vaultUrlEnv || !vaultKey) {
       return new Response(
         JSON.stringify({ error: "Missing environment variables" }),
         {
@@ -19,8 +14,17 @@ async function handler(request) {
       );
     }
 
-    const workerUrl = `${vaultUrl}${endpoint}`;
-    console.log("workerUrl", workerUrl);
+    // Safely construct the worker URL
+    const workerUrl = new URL(vaultUrlEnv);
+    const endpointPath = url.pathname.replace(/^\/api\/vault/, "");
+
+    // Prepend a slash if it doesn't have one and join with base pathname
+    // This ensures we stay within the intended host and path structure
+    const joinedPath = (workerUrl.pathname + "/" + endpointPath).replace(/\/+/g, "/");
+    workerUrl.pathname = joinedPath;
+    workerUrl.search = url.search;
+
+    console.log("workerUrl", workerUrl.toString());
 
     const fetchOptions = {
       method: request.method,
@@ -35,7 +39,12 @@ async function handler(request) {
     }
 
     const res = await fetch(workerUrl, fetchOptions);
-    const data = await res.text();
+    let data = await res.text();
+
+    if (!res.ok) {
+      console.error(`Vault API error ${res.status}:`, data);
+      data = JSON.stringify({ error: `Vault API error ${res.status}` });
+    }
 
     const responseHeaders = new Headers(res.headers);
     responseHeaders.set("Content-Type", "application/json");
