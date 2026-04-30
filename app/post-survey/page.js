@@ -27,12 +27,12 @@ export default function PostSurveyPage() {
         return;
       }
       setUser(u);
-      const [mainRes, gRes] = await Promise.all([
-        fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/mind-experience-post.json`),
-        fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/godspeed-questions.json`),
+      const [questionsData, godspeedData] = await Promise.all([
+        fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/mind-experience-post.json`).then(res => res.json()),
+        fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/godspeed-questions.json`).then(res => res.json()),
       ]);
-      setQuestions(await mainRes.json());
-      setGodspeed(await gRes.json());
+      setQuestions(questionsData);
+      setGodspeed(godspeedData);
       setLoading(false);
     };
     init();

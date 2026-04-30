@@ -1,15 +1,10 @@
 async function handler(request) {
   try {
     const url = new URL(request.url);
-    let pathname = url.pathname;
-
-    // Remove the '/api/vault' prefix to get the Worker endpoint
-    const endpoint = pathname.replace(/^\/api\/vault/, "") + url.search;
-
-    const vaultUrl = process.env.VAULT_API_URL;
+    const vaultUrlEnv = process.env.VAULT_API_URL;
     const vaultKey = process.env.VAULT_API_KEY;
 
-    if (!vaultUrl || !vaultKey) {
+    if (!vaultUrlEnv || !vaultKey) {
       return new Response(
         JSON.stringify({ error: "Missing environment variables" }),
         {
@@ -34,7 +29,12 @@ async function handler(request) {
     }
 
     const res = await fetch(workerUrl, fetchOptions);
-    const data = await res.text();
+    let data = await res.text();
+
+    if (!res.ok) {
+      console.error(`Vault API error ${res.status}:`, data);
+      data = JSON.stringify({ error: `Vault API error ${res.status}` });
+    }
 
     const responseHeaders = new Headers(res.headers);
     responseHeaders.set("Content-Type", "application/json");
