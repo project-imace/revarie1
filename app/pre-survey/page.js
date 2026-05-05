@@ -8,6 +8,8 @@ import GlassCard from '@/components/ui/GlassCard';
 import SurveyForm from '@/components/ui/SurveyForm';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 
+import mindExperiencePre from '@/public/study-materials/mind-experience-pre.json';
+
 export default function PreSurveyPage() {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -26,9 +28,7 @@ export default function PreSurveyPage() {
         return;
       }
       setUser(u);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/mind-experience-pre.json`);
-      const data = await res.json();
-      setQuestions(data);
+      setQuestions(mindExperiencePre);
       setLoading(false);
     };
     init();

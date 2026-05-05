@@ -8,6 +8,9 @@ import GlassCard from '@/components/ui/GlassCard';
 import SurveyForm from '@/components/ui/SurveyForm';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 
+import mindExperiencePost from '@/public/study-materials/mind-experience-post.json';
+import godspeedQuestions from '@/public/study-materials/godspeed-questions.json';
+
 export default function PostSurveyPage() {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -27,12 +30,8 @@ export default function PostSurveyPage() {
         return;
       }
       setUser(u);
-      const [questionsData, godspeedData] = await Promise.all([
-        fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/mind-experience-post.json`).then(res => res.json()),
-        fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/study-materials/godspeed-questions.json`).then(res => res.json()),
-      ]);
-      setQuestions(questionsData);
-      setGodspeed(godspeedData);
+      setQuestions(mindExperiencePost);
+      setGodspeed(godspeedQuestions);
       setLoading(false);
     };
     init();
