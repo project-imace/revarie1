@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
+import { verifyToken } from './lib/session';
 
-export function proxy(request) {
+export async function proxy(request) {
   const sessionCookie = request.cookies.get('participantId');
-  const isLoggedIn = !!sessionCookie?.value;
+  const participantId = await verifyToken(sessionCookie?.value);
+  const isLoggedIn = !!participantId;
   const path = request.nextUrl.pathname;
 
   const isLoginPage = path === '/';

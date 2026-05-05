@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "TZ=UTC node lib/ist.test.js"
+    "test": "TZ=UTC node lib/ist.test.js && node lib/utils.test.js"
   },
   "dependencies": {
     "autoprefixer": "^10.5.0",
@@ -34,9 +34,9 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "globals": "^17.5.0",
-    "postcss": "^8.4.0",
+    "postcss": "^8.5.13",
     "shadcn": "^4.3.0",
-    "tailwindcss": "^4.2.2",
+    "tailwindcss": "^4.2.4",
     "typescript": "^6.0.3"
   }
 }
