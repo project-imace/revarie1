@@ -1,7 +1,7 @@
 export const STUDY_CONFIG = {
-  totalDays: 14,
-  mandatoryChatMinutes: 10,
-  maxExtraMinutes: 10,
+  totalDays: 10,
+  mandatoryChatMinutes: 0,
+  maxExtraMinutes: 20,
   dayResetHourIST: 6,
   studyStartDate: '2026-04-25T06:00:00+05:30',
   vamsQuestions: [
