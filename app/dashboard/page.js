@@ -229,7 +229,7 @@ export default function DashboardPage() {
               Thank you for completing the study!
               <br />
               <span className="text-sm text-foreground/60">
-                Email research@imace.online with your participant ID (
+                Email reach@imace.online with your participant ID (
                 {user.participant_id}) for a certificate.
               </span>
             </p>

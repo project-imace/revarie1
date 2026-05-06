@@ -44,7 +44,7 @@ export default function PostSurveyPage() {
         method: 'POST',
         body: JSON.stringify({
           participant_id: user.participant_id,
-          day: 10,
+          day: 11,
           payload: payload.main,
           godspeed: payload.godspeed,
         }),
