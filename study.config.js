@@ -1,5 +1,5 @@
 export const STUDY_CONFIG = {
-  totalDays: 14,
+  totalDays: 10,
   mandatoryChatMinutes: 10,
   maxExtraMinutes: 10,
   dayResetHourIST: 6,

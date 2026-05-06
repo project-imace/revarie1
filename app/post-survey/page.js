@@ -25,7 +25,7 @@ export default function PostSurveyPage() {
         router.push('/');
         return;
       }
-      if ((u.day_progress || 1) <= 14) {
+      if ((u.day_progress || 1) <= 10) {
         router.push(`/dashboard`);
         return;
       }
@@ -44,7 +44,7 @@ export default function PostSurveyPage() {
         method: 'POST',
         body: JSON.stringify({
           participant_id: user.participant_id,
-          day: 14,
+          day: 10,
           payload: payload.main,
           godspeed: payload.godspeed,
         }),

@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { getCurrentUser, clearAuthCookie } from "@/lib/auth";
-import { getCurrentStudyDay, isDormantPeriod, isNewDayAvailable } from "@/lib/ist";
 import { STUDY_CONFIG } from "@/study.config";
 import GlassCard from "@/components/ui/GlassCard";
 import ProgressBar from "@/components/ui/ProgressBar";
@@ -27,45 +26,23 @@ export default function DashboardPage() {
           router.push("/");
           return;
         }
-        if (currentUser.is_disqualified) {
-          setMessage(
-            "Your participation has been discontinued due to inactivity.",
-          );
-          setUser(currentUser);
-          setLoading(false);
-          return;
-        }
         setUser(currentUser);
 
         const now = new Date();
         const studyStart = new Date(STUDY_CONFIG.studyStartDate);
         const isAfterStart = now >= studyStart;
-        const currentStudyDay = getCurrentStudyDay(STUDY_CONFIG.studyStartDate, now);
-        const isDormant = isDormantPeriod(now);
         const sessionsCompleted = (currentUser.day_progress || 1) - 1;
-        const hasDoneToday = currentUser.last_completed_session_timestamp
-          ? !isNewDayAvailable(currentUser.last_completed_session_timestamp, now)
-          : false;
         
         const canStart =
           isAfterStart &&
-          !isDormant &&
-          !hasDoneToday &&
           sessionsCompleted < STUDY_CONFIG.totalDays &&
-          sessionsCompleted < currentStudyDay &&
           currentUser.has_onboarded;
 
         setSessionAvailable(canStart);
 
         if (!canStart && isAfterStart) {
-          if (isDormant) {
-            setMessage("Study is currently dormant. Next session unlocks at 6:00 AM IST.");
-          } else if (sessionsCompleted >= STUDY_CONFIG.totalDays) {
+          if (sessionsCompleted >= STUDY_CONFIG.totalDays) {
             setMessage("All sessions completed! Thank you for your participation.");
-          } else if (hasDoneToday) {
-            setMessage(`Session ${sessionsCompleted} done. Next session unlocks tomorrow at 6:00 AM IST.`);
-          } else if (sessionsCompleted >= currentStudyDay) {
-            setMessage(`${sessionsCompleted} ${sessionsCompleted === 1 ? 'session' : 'sessions'} done. Next session unlocks tomorrow at 6:00 AM IST.`);
           } else if (!currentUser.has_onboarded) {
             setMessage("Please complete the pre-study survey to begin your first session.");
           }
@@ -170,7 +147,7 @@ export default function DashboardPage() {
       <GlassCard className="mb-6">
         <ProgressBar value={sessionsCompleted} max={STUDY_CONFIG.totalDays} />
         <p className="font-mono text-xs text-foreground/60 mt-3">
-          New sessions unlock daily at 6:00 AM IST
+          Complete {STUDY_CONFIG.totalDays} sessions to finish the study
         </p>
       </GlassCard>
 
