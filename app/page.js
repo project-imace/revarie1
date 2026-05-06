@@ -26,11 +26,6 @@ export default function LandingPage() {
     setError('');
     try {
       const user = await vaultFetch(`/api/auth/verify?id=${encodeURIComponent(identifier)}`);
-      if (user.is_disqualified) {
-        setError('Your participation has been discontinued due to inactivity.');
-        setLoading(false);
-        return;
-      }
       await setAuthCookie(user.participant_id);
       router.push(`/dashboard`);
     } catch (err) {
@@ -86,7 +81,7 @@ export default function LandingPage() {
             <span className="group-open:rotate-180 transition">▼</span>
           </summary>
           <div className="mt-4 text-foreground/70 space-y-3">
-            <p>The study follows a 14‑day structured protocol consisting of pre‑study and post‑study assessments alongside daily interaction sessions. Participants are assigned to controlled groups involving interaction with different AI configurations or self‑reflection baselines, enabling comparative analysis of AI‑induced effects.</p>
+            <p>The study follows a structured protocol consisting of pre‑study and post‑study assessments alongside 10 interaction sessions that can be completed consecutively. Participants are assigned to controlled groups involving interaction with different AI configurations or self‑reflection baselines, enabling comparative analysis of AI‑induced effects.</p>
             <p>Psychometric instruments—including VAMS, PANAS, WHO‑5, TIAS, MMP35 and Godspeed Questionnaires—are used to quantify mood, affect, perceived agency, and relational dynamics across repeated sessions.</p>
           </div>
         </details>
