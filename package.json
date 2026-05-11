@@ -13,17 +13,17 @@
   "dependencies": {
     "autoprefixer": "^10.5.0",
     "clsx": "^2.1.1",
-    "cookies-next": "^5.0.0",
-    "date-fns": "^3.6.0",
+    "cookies-next": "^6.1.1",
+    "date-fns": "^4.1.0",
     "date-fns-tz": "^3.2.0",
     "framer-motion": "^12.38.0",
-    "lucide-react": "^1.8.0",
-    "next": "16.2.4",
+    "lucide-react": "^1.14.0",
+    "next": "16.2.6",
     "package-lock-only": "^0.0.4",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
-    "tailwind-merge": "^3.5.0",
-    "zustand": "^5.0.0"
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "tailwind-merge": "^3.6.0",
+    "zustand": "^5.0.13"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
